@@ -2,13 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 30px;
   width: 100vw;
   min-height: 100vh;
   background-color: #2a2c35;
   color: #2a2c35;
 }
 
-.counter {
+.main-wrapper {
   padding: 30px;
   border: 3px solid #6fe2fb;
   border-radius: 10px;
@@ -20,7 +21,7 @@
   gap: 30px;
 }
 
-.counter-buttons-wrapper {
+.buttons-wrapper {
   width: 294px;
   height: 70px;
   border: 3px solid #6fe2fb;
@@ -33,7 +34,7 @@
 
 }
 
-.counter-button {
+.button {
   border-radius: 10px;
   background-color: #8edff7;
   border: none;
@@ -50,18 +51,18 @@
 }
 
 
-.counter-button:active {
+.button:active {
   transform: scale(90%);
 }
 
-.counter-button:disabled {
+.button:disabled {
   background-color: #497486;
   color: #2a2c35;
   transform: none;
   cursor: not-allowed;
 }
 
-.counter-button-setting {
+.button-setting {
   margin-left: 15px;
   background-color: transparent;
   border: none;

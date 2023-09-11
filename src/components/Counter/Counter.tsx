@@ -33,28 +33,28 @@ export const Counter = () => {
     }
 
     return (
-        <div className={'counter'}>
+        <div className={'main-wrapper'}>
 
             <NumberBoard count={count} maxCount={maxCount} />
 
-            <div className={'counter-buttons-wrapper'}>
+            <div className={'buttons-wrapper'}>
 
                 <Button
                     name={'inc'}
                     onClick={incCounter}
                     disabled={isIncBtnDisabled}
-                    className={'counter-button'}
+                    className={'button'}
                 />
                 <Button
                     name={'reset'}
                     onClick={resetCounter}
                     disabled={isResetBtnDisabled}
-                    className={'counter-button'}
+                    className={'button'}
                 />
                 <Button
                     name="&#9881;&#65039;"
                     onClick={changeMaxCount}
-                    className={'counter-button-setting'}
+                    className={'button-setting'}
                 />
             </div>
 
