@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Button} from '../Button/Button';
-import './Counter.css'
 import {NumberBoard} from '../NumberBoard/NumberBoard';
 
 export const Counter = () => {
