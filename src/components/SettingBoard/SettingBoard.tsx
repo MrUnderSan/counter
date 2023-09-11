@@ -1,8 +1,8 @@
 import React from 'react';
 
-export const CounterSetting = () => {
+export const SettingBoard = () => {
     return (
-        <div className={'counterSetting'}>
+        <div className={'setting-board.'}>
 
             <div>
                 <span>max value:</span>

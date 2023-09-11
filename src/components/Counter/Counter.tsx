@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {CounterNumber} from './CounterNumber/CounterNumber';
 import {Button} from '../Button/Button';
 import './Counter.css'
+import {NumberBoard} from '../NumberBoard/NumberBoard';
 
 export const Counter = () => {
 
@@ -36,7 +36,7 @@ export const Counter = () => {
     return (
         <div className={'counter'}>
 
-            <CounterNumber count={count} maxCount={maxCount}/>
+            <NumberBoard count={count} maxCount={maxCount} />
 
             <div className={'counter-buttons-wrapper'}>
 
