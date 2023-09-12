@@ -5,7 +5,11 @@ import {Setting} from './components/Setting/Setting';
 
 function App() {
 
-    const [limits, setLimits] = useState([5, 0])
+    const localLimits = localStorage.getItem("counterLimits")
+
+    const counterLimits = localLimits ? JSON.parse(localLimits) : [9, 0]
+
+    const [limits, setLimits] = useState(counterLimits)
 
     const [maxLimit, minLimit] = limits
 

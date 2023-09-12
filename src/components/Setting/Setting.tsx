@@ -21,7 +21,10 @@ export const Setting: React.FC<PropsType> = (
     }) => {
 
     const setLimitsHandler = () => {
-        isCorrectValue && setLimits([maxValue, minValue])
+        if (isCorrectValue) {
+            setLimits([maxValue, minValue])
+            localStorage.setItem("counterLimits", JSON.stringify([maxValue, minValue]))
+        }
     }
 
     return (
