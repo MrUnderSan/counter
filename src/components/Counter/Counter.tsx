@@ -1,12 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {Button} from '../Button/Button';
 import {NumberBoard} from '../NumberBoard/NumberBoard';
+import {InfoBoard} from '../InfoBoard/InfoBoard';
 
 type PropsType = {
     limits: number[]
+    maxValue: number
+    minValue: number
+    isCorrectValue: boolean
 }
 
-export const Counter: React.FC<PropsType> = ({limits}) => {
+export const Counter: React.FC<PropsType> = (
+    {limits, maxValue, minValue, isCorrectValue}
+) => {
 
     const [maxLimit, minLimit] = limits
 
@@ -24,14 +30,22 @@ export const Counter: React.FC<PropsType> = ({limits}) => {
         setCount(minLimit)
     }
 
-    const isIncBtnDisabled = count === maxLimit
+    const isSettingChanged = maxLimit !== maxValue || minLimit !== minValue
 
-    const isResetBtnDisabled = count === minLimit
+    const isIncBtnDisabled = (count === maxLimit) || isSettingChanged
+
+    const isResetBtnDisabled = (count === minLimit) || isSettingChanged
+
+    const displayedBoard = isSettingChanged ? (
+        <InfoBoard isCorrectValue={isCorrectValue}/>
+    ) : (
+        <NumberBoard count={count} maxCount={maxLimit}/>
+    )
 
     return (
         <div className={'main-wrapper'}>
 
-            <NumberBoard count={count} maxCount={maxLimit}/>
+            {displayedBoard}
 
             <div className={'buttons-wrapper'}>
 

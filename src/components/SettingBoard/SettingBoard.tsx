@@ -3,8 +3,8 @@ import React, {ChangeEvent} from 'react';
 type PropsType = {
     maxValue: number
     minValue: number
-    setMaxValue: (v: number)=>void
-    setMinValue: (v: number)=>void
+    setMaxValue: (v: number) => void
+    setMinValue: (v: number) => void
 }
 export const SettingBoard: React.FC<PropsType> = ({maxValue, minValue, setMaxValue, setMinValue}) => {
 
@@ -23,12 +23,22 @@ export const SettingBoard: React.FC<PropsType> = ({maxValue, minValue, setMaxVal
 
             <div className={'input-wrapper'}>
                 <div>max value:</div>
-                <input className={maxValueInputClassName} type="number" value={maxValue} onChange={changeMaxValueHandler}/>
+                <input
+                    className={maxValueInputClassName}
+                    type="number"
+                    value={maxValue}
+                    onChange={changeMaxValueHandler}
+                />
             </div>
 
             <div className={'input-wrapper'}>
                 <div>min value:</div>
-                <input className={minValueInputClassName} type="number" value={minValue} onChange={changeMinValueHandler}/>
+                <input
+                    className={minValueInputClassName}
+                    type="number"
+                    value={minValue}
+                    onChange={changeMinValueHandler}
+                />
             </div>
 
         </div>

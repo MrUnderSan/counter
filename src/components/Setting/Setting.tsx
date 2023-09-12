@@ -1,19 +1,24 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Button} from '../Button/Button';
 import {SettingBoard} from '../SettingBoard/SettingBoard';
 
 type PropsType = {
-    limits: number[]
-    setLimits: (l: number[])=>void
+    setLimits: (l: number[]) => void
+    maxValue: number
+    minValue: number
+    setMaxValue: (v: number) => void
+    setMinValue: (v: number) => void
+    isCorrectValue: boolean
 }
-export const Setting: React.FC<PropsType> = ({limits, setLimits}) => {
-
-    const [maxLimit, minLimit] = limits
-
-    const [maxValue, setMaxValue] = useState(maxLimit)
-    const [minValue, setMinValue] = useState(minLimit)
-
-    const isCorrectValue = (maxValue > 0) && (minValue >= 0) && (maxValue > minValue)
+export const Setting: React.FC<PropsType> = (
+    {
+        setLimits,
+        maxValue,
+        minValue,
+        setMaxValue,
+        setMinValue,
+        isCorrectValue
+    }) => {
 
     const setLimitsHandler = () => {
         isCorrectValue && setLimits([maxValue, minValue])
@@ -29,7 +34,12 @@ export const Setting: React.FC<PropsType> = ({limits, setLimits}) => {
                 setMinValue={setMinValue}
             />
             <div className={'buttons-wrapper'}>
-                <Button name={'set'} onClick={setLimitsHandler} className={'button'} disabled={!isCorrectValue}/>
+                <Button
+                    name={'set'}
+                    onClick={setLimitsHandler}
+                    className={'button'}
+                    disabled={!isCorrectValue}
+                />
             </div>
         </div>
 

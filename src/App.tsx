@@ -7,10 +7,29 @@ function App() {
 
     const [limits, setLimits] = useState([5, 0])
 
+    const [maxLimit, minLimit] = limits
+
+    const [maxValue, setMaxValue] = useState(maxLimit)
+    const [minValue, setMinValue] = useState(minLimit)
+
+    const isCorrectValue = (maxValue > 0) && (minValue >= 0) && (maxValue > minValue)
+
     return (
         <div className="App">
-            <Setting limits={limits} setLimits={setLimits}/>
-            <Counter limits={limits} />
+            <Setting
+                setLimits={setLimits}
+                maxValue={maxValue}
+                minValue={minValue}
+                setMaxValue={setMaxValue}
+                setMinValue={setMinValue}
+                isCorrectValue={isCorrectValue}
+            />
+            <Counter
+                limits={limits}
+                maxValue={maxValue}
+                minValue={minValue}
+                isCorrectValue={isCorrectValue}
+            />
         </div>
     );
 }
