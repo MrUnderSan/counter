@@ -1,4 +1,5 @@
 import React, {ChangeEvent} from 'react';
+import {LimitField} from '../LimitField/LimitField';
 
 type PropsType = {
     maxValue: number
@@ -21,29 +22,19 @@ export const SettingBoard: React.FC<PropsType> = ({maxValue, minValue, setMaxVal
     return (
         <div className={'setting-board'}>
 
-            <div className={'input-wrapper'}>
-                <div>max value:</div>
-                <input
-                    className={maxValueInputClassName}
-                    type="number"
-                    value={maxValue}
-                    onChange={changeMaxValueHandler}
-                    title="Max Value"
-                    placeholder="Enter max value"
-                />
-            </div>
+            <LimitField
+                title={'max value'}
+                inputClassName={maxValueInputClassName}
+                value={maxValue}
+                onChange={changeMaxValueHandler}
+            />
 
-            <div className={'input-wrapper'}>
-                <div>min value:</div>
-                <input
-                    className={minValueInputClassName}
-                    type="number"
-                    value={minValue}
-                    onChange={changeMinValueHandler}
-                    title="Min Value"
-                    placeholder="Enter min value"
-                />
-            </div>
+            <LimitField
+                title={'min value'}
+                inputClassName={minValueInputClassName}
+                value={minValue}
+                onChange={changeMinValueHandler}
+            />
 
         </div>
     );
