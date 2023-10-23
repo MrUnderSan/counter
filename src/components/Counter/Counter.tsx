@@ -20,7 +20,7 @@ export const Counter: React.FC<PropsType> = (
 
     useEffect(() => {
         setCount(minLimit)
-    }, [limits])
+    }, [minLimit, maxLimit])
 
     const incCounter = () => {
         count < maxLimit && setCount(count + 1)
