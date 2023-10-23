@@ -28,6 +28,8 @@ export const SettingBoard: React.FC<PropsType> = ({maxValue, minValue, setMaxVal
                     type="number"
                     value={maxValue}
                     onChange={changeMaxValueHandler}
+                    title="Max Value"
+                    placeholder="Enter max value"
                 />
             </div>
 
@@ -38,6 +40,8 @@ export const SettingBoard: React.FC<PropsType> = ({maxValue, minValue, setMaxVal
                     type="number"
                     value={minValue}
                     onChange={changeMinValueHandler}
+                    title="Min Value"
+                    placeholder="Enter min value"
                 />
             </div>
 
