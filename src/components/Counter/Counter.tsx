@@ -1,33 +1,35 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Button} from '../Button/Button';
 import {NumberBoard} from '../NumberBoard/NumberBoard';
 import {InfoBoard} from '../InfoBoard/InfoBoard';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootStateType} from '../../store/store';
+import {LimitReducerStateType} from '../../store/limitReducer';
+import {CounterReducerStateType, incrementCount, resetCounter} from '../../store/counterReducer';
+import {SettingLimitsType} from '../../store/settingReducer';
 
-type PropsType = {
-    limits: number[]
-    maxValue: number
-    minValue: number
-    isCorrectValue: boolean
-}
+type PropsType = {}
 
-export const Counter: React.FC<PropsType> = (
-    {limits, maxValue, minValue, isCorrectValue}
-) => {
+export const Counter: React.FC<PropsType> = () => {
 
-    const [maxLimit, minLimit] = limits
+    const count = useSelector<AppRootStateType, CounterReducerStateType>(state => state.counter)
 
-    const [count, setCount] = useState(minLimit)
+    const {maxLimit, minLimit} = useSelector<AppRootStateType, LimitReducerStateType>(state => state.limit)
+
+    const {maxValue, minValue} = useSelector<AppRootStateType, SettingLimitsType>(state => state.setting.limits)
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        setCount(minLimit)
-    }, [minLimit, maxLimit])
+        dispatch(resetCounter(minLimit))
+    }, [minLimit, maxLimit, dispatch])
 
     const incCounter = () => {
-        count < maxLimit && setCount(count + 1)
+        count < maxLimit && dispatch(incrementCount(count))
     }
 
-    const resetCounter = () => {
-        setCount(minLimit)
+    const resetCounterHandler = () => {
+        dispatch(resetCounter(minLimit))
     }
 
     const isSettingChanged = maxLimit !== maxValue || minLimit !== minValue
@@ -37,9 +39,9 @@ export const Counter: React.FC<PropsType> = (
     const isResetBtnDisabled = (count === minLimit) || isSettingChanged
 
     const displayedBoard = isSettingChanged ? (
-        <InfoBoard isCorrectValue={isCorrectValue}/>
+        <InfoBoard/>
     ) : (
-        <NumberBoard count={count} maxCount={maxLimit}/>
+        <NumberBoard/>
     )
 
     return (
@@ -48,7 +50,6 @@ export const Counter: React.FC<PropsType> = (
             {displayedBoard}
 
             <div className={'buttons-wrapper'}>
-
                 <Button
                     name={'inc'}
                     onClick={incCounter}
@@ -57,12 +58,12 @@ export const Counter: React.FC<PropsType> = (
                 />
                 <Button
                     name={'reset'}
-                    onClick={resetCounter}
+                    onClick={resetCounterHandler}
                     disabled={isResetBtnDisabled}
                     className={'button'}
                 />
             </div>
 
         </div>
-    );
-};
+    )
+}
