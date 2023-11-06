@@ -26,7 +26,7 @@ export const Setting: React.FC<PropsType> = () => {
 
     useEffect(() => {
 
-        const isCorrect = (maxValue > 0) && (minValue >= 0) && (maxValue > minValue)
+        const isCorrect = (maxValue > 0) && (minValue >= 0) && (maxValue > minValue) && Number.isInteger(maxValue) && Number.isInteger(minValue)
 
         if (!isCorrect && isCorrectValue) {
             dispatch(changeCorrectStatus(false))
