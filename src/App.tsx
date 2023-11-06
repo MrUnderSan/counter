@@ -17,7 +17,6 @@ function App() {
             dispatch(changeLimits(localLimits.maxLimit, localLimits.minLimit))
             dispatch(changeMaxLimit(localLimits.maxLimit))
             dispatch(changeMinLimit(localLimits.minLimit))
-            console.log(localLimits)
         }
     }, [dispatch]);
 
