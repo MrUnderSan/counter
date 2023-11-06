@@ -1,5 +1,6 @@
 .App {
   display: flex;
+  flex-wrap: wrap-reverse;
   justify-content: center;
   align-items: center;
   gap: 30px;
@@ -22,7 +23,7 @@
 }
 
 .buttons-wrapper {
-  width: 294px;
+  width: 248px;
   height: 70px;
   border: 3px solid #6fe2fb;
   border-radius: 10px;
@@ -77,8 +78,8 @@
 }
 
 .number-bord {
-  width: 300px;
-  height: 200px;
+  width: 254px;
+  height: 172px;
   background-color: #6fe2fb;
   border-radius: 10px;
   display: flex;
@@ -95,8 +96,8 @@
 }
 
 .setting-board {
-  width: 294px;
-  height: 194px;
+  width: 248px;
+  height: 166px;
   color: #6fe2fb;
   border-radius: 10px;
   border: 3px solid #6fe2fb;
@@ -105,7 +106,7 @@
   justify-content: center;
   align-items: center;
   gap: 30px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
 
 }
