@@ -12,7 +12,7 @@ type ChangeMaxLimitActionType = ReturnType<typeof changeMaxLimit>
 type ChangeMinLimitActionType = ReturnType<typeof changeMinLimit>
 type ChangeCorrectStatusActionType = ReturnType<typeof changeCorrectStatus>
 
-type ActionsType = ChangeMaxLimitActionType | ChangeMinLimitActionType | ChangeCorrectStatusActionType
+export type SettingActionsType = ChangeMaxLimitActionType | ChangeMinLimitActionType | ChangeCorrectStatusActionType
 
 const initState: SettingReducerStateType = {
     limits: {
@@ -21,7 +21,7 @@ const initState: SettingReducerStateType = {
     },
     isCorrectValue: true
 }
-export const settingReducer = (state: SettingReducerStateType = initState, action: ActionsType) => {
+export const settingReducer = (state: SettingReducerStateType = initState, action: SettingActionsType) => {
     switch (action.type) {
         case 'CHANGE-MAX-LIMIT':
             return {...state, limits: {...state.limits, maxValue: action.maxValue}}

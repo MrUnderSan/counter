@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react';
 import {Button} from '../Button/Button';
 import {SettingBoard} from '../SettingBoard/SettingBoard';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {AppRootStateType} from '../../store/store';
 import {changeCorrectStatus, SettingLimitsType} from '../../store/settingReducer';
 import {changeLimits, LimitReducerStateType} from '../../store/limitReducer';
+import {useAppDispatch} from '../../hooks';
+import {areLimitsValid} from '../../utils';
 
 type PropsType = {}
 
@@ -14,19 +16,15 @@ export const Setting: React.FC<PropsType> = () => {
     const {maxValue, minValue} = useSelector<AppRootStateType, SettingLimitsType>(state => state.setting.limits)
     const {maxLimit, minLimit} = useSelector<AppRootStateType, LimitReducerStateType>(state => state.limit)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const setLimitsHandler = () => {
-        if (isCorrectValue) {
-            dispatch(changeLimits(maxValue, minValue))
-            localStorage.setItem('counterLimits', JSON.stringify({maxLimit: maxValue, minLimit: minValue}))
-        }
-
+        dispatch(changeLimits(maxValue, minValue))
     }
 
     useEffect(() => {
 
-        const isCorrect = (maxValue > 0) && (minValue >= 0) && (maxValue > minValue) && Number.isInteger(maxValue) && Number.isInteger(minValue)
+        const isCorrect = areLimitsValid(maxValue, minValue)
 
         if (!isCorrect && isCorrectValue) {
             dispatch(changeCorrectStatus(false))

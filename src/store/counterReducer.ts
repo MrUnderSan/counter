@@ -3,10 +3,10 @@ export type CounterReducerStateType = number
 type IncrementCountActionType = ReturnType<typeof incrementCount>
 type ResetCounterActionType = ReturnType<typeof resetCounter>
 
-type ActionsType = IncrementCountActionType | ResetCounterActionType
+export type CounterActionsType = IncrementCountActionType | ResetCounterActionType
 
 const initState: CounterReducerStateType = 0
-export const counterReducer = (state: CounterReducerStateType = initState, action: ActionsType) => {
+export const counterReducer = (state: CounterReducerStateType = initState, action: CounterActionsType) => {
     switch (action.type) {
         case 'INCREMENT-COUNT':
             return action.num + 1

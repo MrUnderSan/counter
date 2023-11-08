@@ -1,0 +1,1 @@
+export const areLimitsValid = (maxValue: number, minValue: number) => (maxValue > 0) && (minValue >= 0) && (maxValue > minValue) && Number.isInteger(maxValue) && Number.isInteger(minValue)
