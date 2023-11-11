@@ -1,22 +1,20 @@
 import React, {ChangeEvent} from 'react';
 import {LimitField} from '../LimitField/LimitField';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from '../../store/store';
-import {changeMaxLimit, changeMinLimit, SettingLimitsType} from '../../store/settingReducer';
+import {useSetting} from '../../store/store';
 
-type PropsType = {}
+export const SettingBoard = () => {
 
-export const SettingBoard: React.FC<PropsType> = () => {
-
-    const {maxValue, minValue} = useSelector<AppRootStateType, SettingLimitsType>(state => state.setting.limits)
-
-    const dispatch = useDispatch()
+    const [{maxValue, minValue}, changeMaxLimit, changeMinLimit] = useSetting(state => [
+        state.limits,
+        state.changeMaxLimit,
+        state.changeMinLimit
+    ])
 
     const changeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(changeMaxLimit(Number(e.currentTarget.value)))
+        changeMaxLimit(Number(e.currentTarget.value))
     }
     const changeMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(changeMinLimit(Number(e.currentTarget.value)))
+        changeMinLimit(Number(e.currentTarget.value))
     }
 
     const maxValueInputClassName = maxValue > 0 && maxValue > minValue ? 'input' : 'input input_error'

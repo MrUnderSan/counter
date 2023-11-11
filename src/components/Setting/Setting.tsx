@@ -1,45 +1,41 @@
 import React, {useEffect} from 'react';
 import {Button} from '../Button/Button';
 import {SettingBoard} from '../SettingBoard/SettingBoard';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from '../../store/store';
-import {changeCorrectStatus, SettingLimitsType} from '../../store/settingReducer';
-import {changeLimits, LimitReducerStateType} from '../../store/limitReducer';
+import {useCounter, useLimits, useSetting} from '../../store/store';
 
-type PropsType = {}
+export const Setting = () => {
 
-export const Setting: React.FC<PropsType> = () => {
+    const [{maxValue, minValue}, isCorrectValue, changeCorrectStatus] = useSetting(state => [
+        state.limits,
+        state.isCorrectValue,
+        state.changeCorrectStatus
+    ])
 
-    const isCorrectValue = useSelector<AppRootStateType, boolean>(state => state.setting.isCorrectValue)
-    const {maxValue, minValue} = useSelector<AppRootStateType, SettingLimitsType>(state => state.setting.limits)
-    const {maxLimit, minLimit} = useSelector<AppRootStateType, LimitReducerStateType>(state => state.limit)
+    const [{maxLimit, minLimit}, changeLimits] = useLimits((state) => [
+        state.limits,
+        state.changeLimits
+    ])
 
-    const dispatch = useDispatch()
+    const resetCounter = useCounter(state => state.resetCounter)
 
     const setLimitsHandler = () => {
         if (isCorrectValue) {
-            dispatch(changeLimits(maxValue, minValue))
-            localStorage.setItem('counterLimits', JSON.stringify({maxLimit: maxValue, minLimit: minValue}))
+            changeLimits(maxValue, minValue)
+            resetCounter(minValue)
         }
-
     }
 
     useEffect(() => {
 
-        const isCorrect = (maxValue > 0) && (minValue >= 0) && (maxValue > minValue) && Number.isInteger(maxValue) && Number.isInteger(minValue)
+        const areValuesValid = maxValue > 0 && minValue >= 0 && Number.isInteger(maxValue) && Number.isInteger(minValue)
 
-        if (!isCorrect && isCorrectValue) {
-            dispatch(changeCorrectStatus(false))
+        if (areValuesValid !== isCorrectValue) {
+            changeCorrectStatus(areValuesValid)
         }
 
-        if (isCorrect && !isCorrectValue) {
-            dispatch(changeCorrectStatus(true))
-        }
+    }, [maxValue, minValue, isCorrectValue])
 
-    }, [maxValue, minValue, isCorrectValue, dispatch]);
-
-    const isSameValue = maxValue === maxLimit && minValue === minLimit
-
+    const areValuesEqual = maxValue === maxLimit && minValue === minLimit
 
     return (
 
@@ -50,7 +46,7 @@ export const Setting: React.FC<PropsType> = () => {
                     name={'set'}
                     onClick={setLimitsHandler}
                     className={'button'}
-                    disabled={!isCorrectValue || isSameValue}
+                    disabled={!isCorrectValue || areValuesEqual}
                 />
             </div>
         </div>

@@ -1,15 +1,11 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {AppRootStateType} from '../../store/store';
-import {CounterReducerStateType} from '../../store/counterReducer';
+import {useCounter, useLimits} from '../../store/store';
 
-type PropsType = {}
+export const NumberBoard = () => {
 
-export const NumberBoard: React.FC<PropsType> = () => {
+    const count = useCounter(state => state.count)
 
-    const count = useSelector<AppRootStateType, CounterReducerStateType>(state => state.counter)
-
-    const maxLimit = useSelector<AppRootStateType, number>(state => state.limit.maxLimit)
+    const maxLimit = useLimits(state => state.limits.maxLimit)
 
     const numberBoardClassName = count === maxLimit ? 'number-bord bord_error' : 'number-bord'
 

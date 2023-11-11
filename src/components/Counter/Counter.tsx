@@ -1,35 +1,27 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Button} from '../Button/Button';
 import {NumberBoard} from '../NumberBoard/NumberBoard';
 import {InfoBoard} from '../InfoBoard/InfoBoard';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from '../../store/store';
-import {LimitReducerStateType} from '../../store/limitReducer';
-import {CounterReducerStateType, incrementCount, resetCounter} from '../../store/counterReducer';
-import {SettingLimitsType} from '../../store/settingReducer';
+import {useCounter, useLimits, useSetting} from '../../store/store';
 
-type PropsType = {}
+export const Counter = () => {
 
-export const Counter: React.FC<PropsType> = () => {
+    const [count, incrementCount, resetCounter] = useCounter(state => [
+        state.count,
+        state.incrementCount,
+        state.resetCounter
+    ])
 
-    const count = useSelector<AppRootStateType, CounterReducerStateType>(state => state.counter)
+    const {maxValue, minValue} = useSetting(state => state.limits)
 
-    const {maxLimit, minLimit} = useSelector<AppRootStateType, LimitReducerStateType>(state => state.limit)
-
-    const {maxValue, minValue} = useSelector<AppRootStateType, SettingLimitsType>(state => state.setting.limits)
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(resetCounter(minLimit))
-    }, [minLimit, maxLimit, dispatch])
+    const {maxLimit, minLimit} = useLimits((state) => state.limits)
 
     const incCounter = () => {
-        count < maxLimit && dispatch(incrementCount(count))
+        count < maxLimit && incrementCount()
     }
 
     const resetCounterHandler = () => {
-        dispatch(resetCounter(minLimit))
+        resetCounter(minLimit)
     }
 
     const isSettingChanged = maxLimit !== maxValue || minLimit !== minValue

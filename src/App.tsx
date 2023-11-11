@@ -2,23 +2,26 @@ import React, {useEffect} from 'react';
 import './App.css';
 import {Counter} from './components/Counter/Counter';
 import {Setting} from './components/Setting/Setting';
-import {useDispatch} from 'react-redux';
-import {changeLimits, LimitReducerStateType} from './store/limitReducer';
-import {changeMaxLimit, changeMinLimit} from './store/settingReducer';
+import {useCounter, useLimits, useSetting} from './store/store';
 
-function App() {
+const App = () => {
 
-    const dispatch = useDispatch()
+    const {maxLimit, minLimit} = useLimits((state) => state.limits)
+
+    const [ changeMaxLimit, changeMinLimit] = useSetting(state => [
+        state.changeMaxLimit,
+        state.changeMinLimit
+    ])
+
+    const resetCounter = useCounter(state => state.resetCounter)
+
 
     useEffect(() => {
-        const localStorageLimits = localStorage.getItem('counterLimits')
-        if (localStorageLimits) {
-            const localLimits: LimitReducerStateType = JSON.parse(localStorageLimits)
-            dispatch(changeLimits(localLimits.maxLimit, localLimits.minLimit))
-            dispatch(changeMaxLimit(localLimits.maxLimit))
-            dispatch(changeMinLimit(localLimits.minLimit))
-        }
-    }, [dispatch]);
+        resetCounter(minLimit)
+        changeMaxLimit(maxLimit)
+        changeMinLimit(minLimit)
+    }, [])
+
 
     return (
         <div className="App">
